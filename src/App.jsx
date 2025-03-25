@@ -11,7 +11,6 @@ function App() {
   ];
 
   return (
-    <>
       <div style={{padding:"10px"}}>
         <div className="Header">
           <Text as="h1" text="TodoMatic"/>
@@ -44,7 +43,6 @@ function App() {
           ))}
         </ul>
       </div>
-    </>
   )
 }
 
