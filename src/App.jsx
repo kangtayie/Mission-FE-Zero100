@@ -13,8 +13,8 @@ function App() {
   return (
       <div style={{padding:"10px"}}>
         <div className="Header">
-          <Text as="h1" text="TodoMatic"/>
-          <Text as="h2" text="What needs to be done?"/>
+          <Text type="h1" text="TodoMatic"/>
+          <Text type="h2" text="What needs to be done?"/>
         </div>
 
         <div>
@@ -28,7 +28,7 @@ function App() {
           <Button text="Show completed tasks" />
         </div>
 
-        <Text as="h2" text="3 tasks remaining"></Text>
+        <Text type="h2" text="3 tasks remaining"></Text>
 
         <ul>
           {tasks.map((task)=>(
