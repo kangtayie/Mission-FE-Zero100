@@ -1,5 +1,5 @@
 const CheckBox=({checked, onChange})=>{
-    return <input type="checkbox" checked={checked} onChange={onChange} />
+    return <input type="checkbox" isChecked={checked} onChange={onChange} />
 
 };
 
