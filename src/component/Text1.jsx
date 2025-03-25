@@ -1,6 +1,11 @@
-const Text=({as="p", text})=>{
-    const Tag=as;
-    return <Tag>{text}</Tag>;
-};
+const Text=({type, text})=>{
+    if(type==="h1"){
+        return <h1>{text}</h1>;
+    }else if(type==="h2"){
+        return <h2>{text}</h2>;
+    }
+
+    return <div>{text}</div>; //default
+}
 
 export default Text;
