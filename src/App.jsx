@@ -1,4 +1,4 @@
-import Text from "./component/Text1";
+import Text from "./component/Text";
 import Input from "./component/Input";
 import Button from "./component/Button";
 import CheckBox from "./component/CheckBox";
