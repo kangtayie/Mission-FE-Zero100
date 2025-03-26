@@ -19,13 +19,13 @@ function App() {
 
         <div>
           <Input />
-          <Button text="Add"></Button>
+          <Button>Add</Button>
         </div>
 
         <div>
-          <Button text="Show All tasks" />
-          <Button text="Show active tasks" />
-          <Button text="Show completed tasks" />
+          <Button>Show All tasks</Button>
+          <Button>Show active tasks</Button>
+          <Button>Show completed tasks</Button>
         </div>
 
         <Text type="h2" text="3 tasks remaining"></Text>
@@ -36,8 +36,8 @@ function App() {
               <CheckBox id={task.id}/>
               <label>{task.label}</label>
               <div>
-                <Button text={`Edit ${task.label}`}/>
-                <Button text={`Delete ${task.label}`}/>
+                <Button>{`Edit ${task.label}`}</Button>
+                <Button>{`Delete ${task.label}`}</Button>
               </div>
             </li>
           ))}
