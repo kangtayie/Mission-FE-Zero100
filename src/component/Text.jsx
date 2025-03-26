@@ -5,7 +5,7 @@ const Text=({type, text})=>{
         return <h2>{text}</h2>;
     }
 
-    return <div>{text}</div>; //default
+    return <div>{type}{text}</div>; //default
 }
 
 export default Text;
