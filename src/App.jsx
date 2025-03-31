@@ -1,8 +1,10 @@
+import styled from 'styled-components'
 import Text from './component/Text'
 import Input from './component/Input'
 import Button from './component/Button'
 import CheckBox from './component/CheckBox'
 import Header from './component/Header'
+import AddTodo from './component/AddTodo'
 
 function App() {
   const tasks = [
@@ -14,15 +16,7 @@ function App() {
   return (
     <div style={{ padding: '10px' }}>
       <Header />
-      <div className='Header'>
-        <Text type='h2' text='What needs to be done?' />
-      </div>
-
-      <div>
-        <Input />
-        <Button>Add</Button>
-      </div>
-
+      <AddTodo />
       <div>
         <Button>Show All tasks</Button>
         <Button>Show active tasks</Button>
