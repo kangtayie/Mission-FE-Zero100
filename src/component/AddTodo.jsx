@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import Text from './Text'
 import Input from './Input'
-import { useState } from 'react'
 import Button from './Button'
 
 const Container = styled.div`
