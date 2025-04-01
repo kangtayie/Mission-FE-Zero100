@@ -6,6 +6,7 @@ import CheckBox from './component/CheckBox'
 import Header from './component/Header'
 import AddTodo from './component/AddTodo'
 import Category from './component/Category'
+import TodoList from './component/TodoList'
 
 function App() {
   const tasks = [
@@ -21,9 +22,7 @@ function App() {
       <div>
         <Category />
       </div>
-
-      <Text type='h2' text='3 tasks remaining'></Text>
-
+      <TodoList />
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>
