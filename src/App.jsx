@@ -23,18 +23,6 @@ function App() {
         <Category />
       </div>
       <TodoList />
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <CheckBox id={task.id} />
-            <label>{task.label}</label>
-            <div>
-              <Button>{`Edit ${task.label}`}</Button>
-              <Button>{`Delete ${task.label}`}</Button>
-            </div>
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }
