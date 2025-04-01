@@ -5,6 +5,7 @@ import Button from './component/Button'
 import CheckBox from './component/CheckBox'
 import Header from './component/Header'
 import AddTodo from './component/AddTodo'
+import Category from './component/Category'
 
 function App() {
   const tasks = [
@@ -18,9 +19,7 @@ function App() {
       <Header />
       <AddTodo />
       <div>
-        <Button>Show All tasks</Button>
-        <Button>Show active tasks</Button>
-        <Button>Show completed tasks</Button>
+        <Category />
       </div>
 
       <Text type='h2' text='3 tasks remaining'></Text>
