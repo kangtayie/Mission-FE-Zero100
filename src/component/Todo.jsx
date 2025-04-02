@@ -8,6 +8,7 @@ const TodoItem = styled.li`
   padding: 10px;
   border-radius: 6px;
 `
+
 const Label = styled.label`
   font-size: 16px;
 `
@@ -41,6 +42,7 @@ const DeleteButton = styled(Button)`
   color: white;
   cursor: pointer;
 `
+
 const Todo = ({ id, label, isChecked }) => {
   return (
     <TodoItem>
