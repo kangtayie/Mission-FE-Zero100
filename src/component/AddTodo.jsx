@@ -16,6 +16,7 @@ const InputContainer = styled.div`
   max-width: 500px;
   margin-bottom: 5px;
 `
+
 const StyledButton = styled(Button)`
   width: 100%;
   max-width: 500px;
@@ -25,6 +26,7 @@ const StyledButton = styled(Button)`
   font-weight: bold;
   margin-top: 5px;
 `
+
 const AddTodo = () => {
   return (
     <Container>
