@@ -7,6 +7,7 @@ const StyledCheckBox = styled.input.attrs({ type: 'checkbox' })`
   border: 1.5px solid;
   cursor: pointer;
   border-radius: 0;
+  margin-left: 0;
 
   &:checked {
     background-color: white;

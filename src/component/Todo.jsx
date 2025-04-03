@@ -6,10 +6,14 @@ import Button from './Button'
 const TodoItem = styled.li`
   margin-bottom: 5px;
   padding: 10px;
+  padding-left: 0;
   border-radius: 6px;
+  width: 100%;
 `
 
 const Label = styled.label`
+  margin: 0;
+  padding: 0;
   font-size: 16px;
 `
 
@@ -17,6 +21,7 @@ const Top = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
+  width: 100%;
 `
 
 const Bottom = styled.div`
@@ -24,6 +29,8 @@ const Bottom = styled.div`
   display: flex;
   gap: 6px;
   font-weight: bold;
+  width: 100%
+  padding-left: 0;
 `
 
 const EditButton = styled(Button)`
