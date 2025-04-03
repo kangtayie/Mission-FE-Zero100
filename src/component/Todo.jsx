@@ -13,13 +13,13 @@ const Label = styled.label`
   font-size: 16px;
 `
 
-const Left = styled.div`
+const Top = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
 `
 
-const Right = styled.div`
+const Bottom = styled.div`
   margin-top: 10px;
   display: flex;
   gap: 6px;
@@ -46,14 +46,14 @@ const DeleteButton = styled(Button)`
 const Todo = ({ id, label, isChecked }) => {
   return (
     <TodoItem>
-      <Left>
+      <Top>
         <CheckBox id={id} checked={isChecked} />
         <Label htmlFor={id}>{label}</Label>
-      </Left>
-      <Right>
+      </Top>
+      <Bottom>
         <EditButton>Edit</EditButton>
         <DeleteButton>Delete</DeleteButton>
-      </Right>
+      </Bottom>
     </TodoItem>
   )
 }
