@@ -14,9 +14,7 @@ function App() {
     <div style={{ padding: '10px' }}>
       <Header />
       <AddTodo />
-      <div>
-        <Category />
-      </div>
+      <Category />
       <TodoList />
     </div>
   )
