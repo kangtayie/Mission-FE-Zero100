@@ -16,16 +16,14 @@ const StyledButton = styled.button`
   font-size: 14px;
 `;
 
-const Category = () => {
-  const [activeButton, setActiveButton] = useState("All");
-
+const Category = ({ activeCategory, setActiveCategory }) => {
   return (
     <CategoryContainer>
       {["All", "Active", "Completed"].map((label) => (
         <StyledButton
           key={label}
-          active={activeButton === label}
-          onClick={() => setActiveButton(label)}
+          active={activeCategory === label}
+          onClick={() => setActiveCategory(label)}
         >
           {label}
         </StyledButton>

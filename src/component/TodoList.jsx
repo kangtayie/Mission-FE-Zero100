@@ -1,5 +1,5 @@
-import React from 'react';
 import styled from "styled-components";
+import React, { useState } from 'react';
 
 const TodoListContainer = styled.div`
   display: flex;
@@ -71,45 +71,51 @@ const TaskActions = styled.div`
   margin-top: 5px;
 `;
 
-const TodoList = () => {
+
+const TodoList = ({ todos, setTodos, activeCategory }) => {
+    const handleDelete = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    };
+
+    const handleToggleComplete = (id) => {
+        setTodos(
+            todos.map(todo =>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
+        );
+    };
+
+    const filteredTodos = todos.filter(todo => {
+        if (activeCategory === "Active") return !todo.completed;
+        if (activeCategory === "Completed") return todo.completed;
+        return true;
+    });
+
     return (
-      <TodoListContainer>
-        <StyledText>3 tasks remaining</StyledText>
-        <div className="task-list">
-          <TaskItem>
-            <TaskTop>
-              <StyledCheckbox />
-              <span>Eat</span>
-            </TaskTop>
-            <TaskActions>
-              <EditButton>Edit</EditButton>
-              <DeleteButton>Delete</DeleteButton>
-            </TaskActions>
-          </TaskItem>
-          <TaskItem>
-            <TaskTop>
-              <StyledCheckbox />
-              <span>Sleep</span>
-            </TaskTop>
-            <TaskActions>
-              <EditButton>Edit</EditButton>
-              <DeleteButton>Delete</DeleteButton>
-            </TaskActions>
-          </TaskItem>
-          <TaskItem>
-            <TaskTop>
-              <StyledCheckbox />
-              <span>Repeat</span>
-            </TaskTop>
-            <TaskActions>
-              <EditButton>Edit</EditButton>
-              <DeleteButton>Delete</DeleteButton>
-            </TaskActions>
-          </TaskItem>
-        </div>
-      </TodoListContainer>
+        <TodoListContainer>
+            <StyledText>{todos.filter(todo => !todo.completed).length} tasks remaining</StyledText>
+            <div className="task-list">
+                {filteredTodos.map(todo => (
+                    <TaskItem key={todo.id}>
+                        <TaskTop>
+                            <StyledCheckbox
+                                checked={todo.completed}
+                                onChange={() => handleToggleComplete(todo.id)}
+                            />
+                            <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+                                {todo.text}
+                            </span>
+                        </TaskTop>
+                        <TaskActions>
+                            <EditButton>Edit</EditButton>
+                            <DeleteButton onClick={() => handleDelete(todo.id)}>Delete</DeleteButton>
+                        </TaskActions>
+                    </TaskItem>
+                ))}
+            </div>
+        </TodoListContainer>
     );
-  };
-  
-  export default TodoList;
-  
+};
+
+export default TodoList;
+

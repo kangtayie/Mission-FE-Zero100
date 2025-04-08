@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 
 const AddTodoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-//   justify-content: center;
   text-align: center;
 `;
 
@@ -31,12 +30,28 @@ const StyledButton = styled.button`
   margin-bottom: 8px;
 `;
 
-const AddTodo = () => {
+const AddTodo = ({ onAddTodo }) => {
+    const [inputValue, setInputValue] = useState("");
+
+    const handleInputChange = (e) => {
+      setInputValue(e.target.value);
+    };
+  
+    const handleAddClick = () => {
+      onAddTodo(inputValue);
+      setInputValue(""); 
+    };
+
     return(
         <AddTodoContainer>
             <StyledText>What needs to be done?</StyledText>
-            <StyledInput type="text" placeholder="Add a task" />
-            <StyledButton>Add</StyledButton>
+            <StyledInput 
+                type="text" 
+                placeholder="Add a task"
+                value={inputValue}
+                onChange={handleInputChange} 
+            />
+            <StyledButton onClick={handleAddClick}>Add</StyledButton>
         </AddTodoContainer>
     )
 }
