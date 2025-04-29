@@ -4,6 +4,7 @@ import AddTodo from "./component/AddTodo";
 import Category from "./component/Category";
 import TodoList from "./component/TodoList";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const Container = styled.div`
   max-width: 800px;
@@ -23,13 +24,30 @@ const Container = styled.div`
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
+
+  useEffect(() => {
+    const savedTodos = localStorage.getItem("tasks");
+    if (savedTodos) {
+      setTodos(JSON.parse(savedTodos));
+    }
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() =>{
+    if (isLoaded) {
+      localStorage.setItem("tasks", JSON.stringify(todos));
+    }
+  }, [todos, isLoaded]);
 
   const handleAddTodo = (text) => {
     if (text.trim() === "") return;
-    const newTodo = { id: Date.now(), text, completed: false };
+    const newTodo = { id: Date.now(), text, completed: false, isEditing: false };
     setTodos([...todos, newTodo]);
   };
+
+  if (!isLoaded) return <div>Loading... </div>;
 
   return (
     <Container>

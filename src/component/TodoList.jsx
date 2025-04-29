@@ -54,6 +54,17 @@ const DeleteButton = styled(StyledButton)`
   color: white;
 `;
 
+const SaveButton = styled(StyledButton)`
+  background-color: black;
+  color: white;
+  `;
+
+const CancelButton = styled(StyledButton)`
+  background-color: white;
+  border: 1px, solid, black;
+  color: black;
+  `;
+
 const TaskItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -71,8 +82,9 @@ const TaskActions = styled.div`
   margin-top: 5px;
 `;
 
-
 const TodoList = ({ todos, setTodos, activeCategory }) => {
+    const [editTexts, setEditTexts] = useState({});
+
     const handleDelete = (id) => {
         setTodos(todos.filter(todo => todo.id !== id));
     };
@@ -83,6 +95,47 @@ const TodoList = ({ todos, setTodos, activeCategory }) => {
                 todo.id === id ? { ...todo, completed: !todo.completed } : todo
             )
         );
+    };
+
+    const handleEdit = (id, currentText) => {
+      setEditTexts(prev => ({...prev, [id]:currentText}));
+      setTodos(
+        todos.map(todo => 
+          todo.id === id ? {...todo, isEditing: true}: todo
+        )
+      );
+    };
+
+    const handleSave =(id) => {
+      setTodos(
+        todos.map(todo =>
+          todo.id === id
+          ? { ...todo, text: editTexts[id], isEditing: false }
+          : todo
+        )
+      );
+      setEditTexts(prev => {
+        const newEditTexts = { ...prev };
+        delete newEditTexts[id];
+        return newEditTexts;
+      });
+    };
+
+    const handleCancel = (id) => {
+      setTodos(
+        todos.map(todo =>
+          todo.id === id ? { ...todo, isEditing: false } : todo
+        )
+      );
+      setEditTexts(prev => {
+        const newEditTexts = { ...prev };
+        delete newEditTexts[id];
+        return newEditTexts;
+      });
+    };
+
+    const handleEditChange = (id, newText) => {
+      setEditTexts(prev => ({ ...prev, [id]: newText }));
     };
 
     const filteredTodos = todos.filter(todo => {
@@ -97,6 +150,28 @@ const TodoList = ({ todos, setTodos, activeCategory }) => {
             <div className="task-list">
                 {filteredTodos.map(todo => (
                     <TaskItem key={todo.id}>
+                      {todo.isEditing ? (
+                        <>
+                          <TaskTop style={{ flexDirection: "column", alignItems:"flex-start"}}>
+                            <div style={{marginBottom: "8px", fontWeight:"bold"}}>
+                              New name for <span style={{color: "#555"}}>{todo.text}</span>
+                            </div>
+
+                            <input
+                              type="text"
+                              value={editTexts[todo.id] || ''}
+                              onChange={(e) => handleEditChange(todo.id, e.target.value)}
+                              style={{ width: "400px", padding: "8px", fontSize: "16px" }}
+                            />
+                          </TaskTop>
+
+                          <TaskActions>
+                            <CancelButton onClick={() => handleCancel(todo.id)}>Cancel</CancelButton>
+                            <SaveButton onClick={() => handleSave(todo.id)}>Save</SaveButton>
+                          </TaskActions>
+                        </>
+                      ) : (
+                        <>
                         <TaskTop>
                             <StyledCheckbox
                                 checked={todo.completed}
@@ -107,9 +182,11 @@ const TodoList = ({ todos, setTodos, activeCategory }) => {
                             </span>
                         </TaskTop>
                         <TaskActions>
-                            <EditButton>Edit</EditButton>
+                            <EditButton onClick={() => handleEdit(todo.id, todo.text)}>Edit</EditButton>
                             <DeleteButton onClick={() => handleDelete(todo.id)}>Delete</DeleteButton>
                         </TaskActions>
+                        </>
+                      )}                       
                     </TaskItem>
                 ))}
             </div>
