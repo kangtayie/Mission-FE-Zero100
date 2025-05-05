@@ -1,62 +1,50 @@
-import styled from "styled-components";
-import Header from "./component/Header";
-import AddTodo from "./component/AddTodo";
-import Category from "./component/Category";
-import TodoList from "./component/TodoList";
-import { useState } from "react";
-import { useEffect } from "react";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import TodoPage from "./component/TodoPage";
+import LoginPage from "./component/LoginPage";
+import SignupPage from "./component/SignupPage";
 
-const Container = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
+function App(){
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="/todo" element={<TodoPage />}/>
+        <Route path="/login" element={<LoginPage />}/>
+        <Route path="/signup" element={<SignupPage />}/>
+      </Routes>
+    </Router>
+  );
+}
 
-  @media (max-width: 768px) and (orientation: portrait) {
-    max-width: 90%;
-    padding: 1.5rem;
-  }
+function Home(){
+  const navigate =useNavigate();
 
-  @media (max-width: 480px) and (orientation: portrait) {
-    padding: 1rem;
-  }
-`;
-
-function App() {
-  const [todos, setTodos] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  useEffect(() => {
-    const savedTodos = localStorage.getItem("tasks");
-    if (savedTodos) {
-      setTodos(JSON.parse(savedTodos));
-    }
-    setIsLoaded(true);
-  }, []);
-
-  useEffect(() =>{
-    if (isLoaded) {
-      localStorage.setItem("tasks", JSON.stringify(todos));
-    }
-  }, [todos, isLoaded]);
-
-  const handleAddTodo = (text) => {
-    if (text.trim() === "") return;
-    const newTodo = { id: Date.now(), text, completed: false, isEditing: false };
-    setTodos([...todos, newTodo]);
+  const buttonStyle = {
+    width: "200px",
+    padding: "10px 0",
+    margin: "20px auto",
+    display: "block",
+    backgroundColor: "#ddd",
+    border: "none",
+    borderRadius: "30px",
+    fontSize: "1.1rem",
+    fontWeight: "600",
   };
 
-  if (!isLoaded) return <div>Loading... </div>;
+  const titleStyle = {
+    fontSize: "2rem",
+    fontWeight: "700",
+    marginBottom: "40px",
+  };
 
-  return (
-    <Container>
-      <Header />
-      <AddTodo onAddTodo={handleAddTodo} />
-      <Category activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
-      <TodoList todos={todos} setTodos={setTodos} activeCategory={activeCategory} />
-    </Container>
+  return(
+    <div style={{textAlign:"center"}}>
+      <h1 style={titleStyle}>Tayie's TODO</h1>
+      <button style={buttonStyle} onClick={() => navigate("/login")}>로그인</button>
+      <button style={buttonStyle} onClick={() => navigate("/signup")}>회원가입</button>
+    </div>
   );
-};
+}
 
 export default App;
