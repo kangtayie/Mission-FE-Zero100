@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function SignupPage() {
+const SignupPage: React.FC = () => {
   const navigate = useNavigate();
+
+  const [name, setName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errorMsg, setErrorMsg] = useState<string>("");
+
+  const handleSignup =async(): Promise<void> =>{
+    try {
+      const res = await axios.get<{ username: string}[]>(`http://localhost:3000/users?username=${username}`);
+      console.log("GET /users?username= 응답:", res.data);
+      
+      if(res.data.length > 0){
+        setErrorMsg("이미 존재하는 아이디입니다!");
+        return;
+      }
+      await axios.post("http://localhost:3000/users", {
+        name,
+        username,
+        password,
+      });
+
+      alert("회원가입 성공!");
+      navigate("/login");
+    } catch(error){
+      console.error("회원가입 오류: error");
+      setErrorMsg("**서버 오류가 발생했습니다!** ");
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -12,20 +41,25 @@ function SignupPage() {
         <div style={styles.inputContainer}>
           <div style={styles.inputRow}>
             <label style={styles.label}>이름</label>
-            <input type="text" style={styles.input} placeholder="김철수" />
+            <input type="text" style={styles.input} placeholder="김철수" 
+            value={name} onChange={(e) => setName(e.target.value)}/>
           </div>
 
           <div style={styles.inputRow}>
             <label style={styles.label}>아이디</label>
-            <input type="text" style={styles.input} placeholder="chulsu" />
+            <input type="text" style={styles.input} placeholder="chulsu"
+            value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
 
           <div style={styles.inputRow}>
             <label style={styles.label}>비밀번호</label>
-            <input type="password" style={styles.input} placeholder="••••" />
+            <input type="password" style={styles.input} placeholder="••••" 
+            value={password} onChange={(e) => setPassword(e.target.value)}/>
           </div>
 
-          <button style={styles.signupButton}>회원가입</button>
+          <button style={styles.signupButton} onClick={handleSignup}>회원가입</button>
+          
+          <p style={{color: "red", marginTop: "10px"}}>{errorMsg}</p>
         </div>
       </div>
     </div>
@@ -49,7 +83,7 @@ const styles = {
   },
   formWrapper: {
     display: "flex",
-    flexDirection: "column", // 수정된 부분
+    flexDirection: "column", 
     alignItems: "center",
     gap: "20px",
   },
@@ -89,6 +123,6 @@ const styles = {
     width: "150px",
     alignSelf: "center",
   },
-};
+} as {[key: string]: React.CSSProperties};
 
 export default SignupPage;

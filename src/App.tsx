@@ -1,10 +1,19 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import TodoPage from "./component/TodoPage";
 import LoginPage from "./component/LoginPage";
 import SignupPage from "./component/SignupPage";
 
 function App(){
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const savedUser =localStorage.getItem("user");
+    if(savedUser){
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+  
   return (
     <Router>
       <Routes>

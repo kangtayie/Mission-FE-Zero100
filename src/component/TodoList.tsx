@@ -1,6 +1,19 @@
 import styled from "styled-components";
 import React, { useState } from 'react';
 
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+  isEditing: boolean;
+}
+
+interface TodoListProps{
+  todos: Todo[];
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  activeCategory: "All" | "Active" | "Completed" ;
+}
+
 const TodoListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -82,14 +95,14 @@ const TaskActions = styled.div`
   margin-top: 5px;
 `;
 
-const TodoList = ({ todos, setTodos, activeCategory }) => {
-    const [editTexts, setEditTexts] = useState({});
+const TodoList: React.FC<TodoListProps> = ({ todos, setTodos, activeCategory }) => {
+    const [editTexts, setEditTexts] = useState<Record<number, string>>({});
 
-    const handleDelete = (id) => {
+    const handleDelete = (id: number) => {
         setTodos(todos.filter(todo => todo.id !== id));
     };
 
-    const handleToggleComplete = (id) => {
+    const handleToggleComplete = (id: number) => {
         setTodos(
             todos.map(todo =>
                 todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -97,7 +110,7 @@ const TodoList = ({ todos, setTodos, activeCategory }) => {
         );
     };
 
-    const handleEdit = (id, currentText) => {
+    const handleEdit = (id: number, currentText: string) => {
       setEditTexts(prev => ({...prev, [id]:currentText}));
       setTodos(
         todos.map(todo => 
@@ -106,7 +119,7 @@ const TodoList = ({ todos, setTodos, activeCategory }) => {
       );
     };
 
-    const handleSave =(id) => {
+    const handleSave =(id: number) => {
       setTodos(
         todos.map(todo =>
           todo.id === id
@@ -121,7 +134,7 @@ const TodoList = ({ todos, setTodos, activeCategory }) => {
       });
     };
 
-    const handleCancel = (id) => {
+    const handleCancel = (id: number) => {
       setTodos(
         todos.map(todo =>
           todo.id === id ? { ...todo, isEditing: false } : todo
@@ -134,7 +147,7 @@ const TodoList = ({ todos, setTodos, activeCategory }) => {
       });
     };
 
-    const handleEditChange = (id, newText) => {
+    const handleEditChange = (id: number, newText: string) => {
       setEditTexts(prev => ({ ...prev, [id]: newText }));
     };
 

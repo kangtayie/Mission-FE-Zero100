@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function LoginPage() {
+const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div style={styles.container}>
@@ -12,12 +14,14 @@ function LoginPage() {
         <div style={styles.inputContainer}>
           <div style={styles.inputRow}>
             <label style={styles.label}>아이디</label>
-            <input type="text" style={styles.input} placeholder="abcde" />
+            <input type="text" style={styles.input} placeholder="abcde"
+            value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
 
           <div style={styles.inputRow}>
             <label style={styles.label}>비밀번호</label>
-            <input type="password" style={styles.input} placeholder="••••" />
+            <input type="password" style={styles.input} placeholder="••••"
+            value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
         </div>
 
@@ -29,14 +33,14 @@ function LoginPage() {
       </div>
     </div>
   );
-}
+};
 
 const styles = {
   container: {
     backgroundColor: "#f0f0f0",
     height: "100vh",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column" as const,
     justifyContent: "center",
     alignItems: "center",
     fontFamily: "sans-serif",
@@ -48,13 +52,13 @@ const styles = {
   },
   formWrapper: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "row" as const,
     alignItems: "center",
     gap: "20px",
   },
   inputContainer: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column" as const,
     gap: "10px",
   },
   inputRow: {
@@ -65,7 +69,7 @@ const styles = {
     width: "80px",
     fontSize: "1rem",
     fontWeight: "600",
-    textAlign: "right",
+    textAlign: "right" as const,
     marginRight: "10px",
   },
   input: {

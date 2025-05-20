@@ -7,7 +7,11 @@ const CategoryContainer = styled.div`
   gap: 8px;
 `;
 
-const StyledButton = styled.button`
+interface StyledButtonProps {
+  active: boolean;
+}
+
+const StyledButton = styled.button<StyledButtonProps>`
   width: 130px;
   padding: 7px;
   background-color: white;
@@ -16,10 +20,15 @@ const StyledButton = styled.button`
   font-size: 14px;
 `;
 
-const Category = ({ activeCategory, setActiveCategory }) => {
+interface CategoryProps{
+  activeCategory: "All" | "Active" | "Completed";
+  setActiveCategory: (category: "All" | "Active" | "Completed") => void;
+}
+
+const Category: React.FC<CategoryProps> = ({ activeCategory, setActiveCategory }) => {
   return (
     <CategoryContainer>
-      {["All", "Active", "Completed"].map((label) => (
+      {(["All", "Active", "Completed"]as const).map((label) => (
         <StyledButton
           key={label}
           active={activeCategory === label}

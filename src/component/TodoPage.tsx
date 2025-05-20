@@ -6,6 +6,13 @@ import TodoList from "./TodoList";
 import { useState } from "react";
 import { useEffect } from "react";
 
+type Todo = {
+  id: number;
+  text: string;
+  completed: boolean;
+  isEditing: boolean;
+};
+
 const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;
@@ -22,10 +29,10 @@ const Container = styled.div`
   }
 `;
 
-function TodoPage() {
-  const [todos, setTodos] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [activeCategory, setActiveCategory] = useState("All");
+const TodoPage: React.FC =() => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [activeCategory, setActiveCategory] = useState<"All" | "Active" | "Completed">("All");
 
   useEffect(() => {
     const savedTodos = localStorage.getItem("tasks");
@@ -41,7 +48,7 @@ function TodoPage() {
     }
   }, [todos, isLoaded]);
 
-  const handleAddTodo = (text) => {
+  const handleAddTodo = (text: string) => {
     if (text.trim() === "") return;
     const newTodo = { id: Date.now(), text, completed: false, isEditing: false };
     setTodos([...todos, newTodo]);
