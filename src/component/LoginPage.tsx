@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
       }
 
       alert("로그인 성공!");
-      navigate("/dashboard"); 
+      navigate("/todo"); 
     } catch (error) {
       console.error("로그인 오류:", error);
       setErrorMsg("서버 오류가 발생했습니다.");
